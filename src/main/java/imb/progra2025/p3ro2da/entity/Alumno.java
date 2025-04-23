@@ -1,7 +1,14 @@
-package imb.progra2025.p3ro2da;
+package imb.progra2025.p3ro2da.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Alumno {
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String apellido;
 	private String nombre;
