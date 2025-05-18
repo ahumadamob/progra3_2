@@ -9,8 +9,10 @@ public interface IAlumnoService {
 	
 	public List<Alumno> findAll();
 	public Alumno findById(Long id);
-	public Alumno save(Alumno alumno);
+	public Alumno create(Alumno alumno);
+	public Alumno update(Long id, Alumno alumno) throws Exception;
 	public void deleteById(Long id);
 	public Alumno fromDto(AlumnoRequestDTO requestDto) throws Exception;
+	public boolean existsById(Long id);
 
 }
