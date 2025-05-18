@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import imb.progra2025.p3ro2da.dto.AlumnoRequestDTO;
 import imb.progra2025.p3ro2da.entity.Alumno;
 import imb.progra2025.p3ro2da.service.IAlumnoService;
 
@@ -35,15 +36,24 @@ public class AlumnoController {
 	
 	//POST
 	@PostMapping("/alumno")
-	public Alumno createAlumno(@RequestBody Alumno alumno) {
-		return service.save(alumno);
-		
+	public Alumno createAlumno(@RequestBody AlumnoRequestDTO alumnoRequestDto) {
+		try {
+			return service.save(service.fromDto(alumnoRequestDto));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	//PUT
 	@PutMapping("/alumno")
-	public Alumno updateAlumno(@RequestBody Alumno alumno) {
-		return service.save(alumno);
+	public Alumno updateAlumno(@RequestBody AlumnoRequestDTO alumnoRequestDto) {
+		try {
+			return service.save(service.fromDto(alumnoRequestDto));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	//DELETE
