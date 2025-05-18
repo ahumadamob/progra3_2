@@ -6,8 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import imb.progra2025.p3ro2da.dto.AlumnoRequestDTO;
 import imb.progra2025.p3ro2da.entity.Alumno;
+import imb.progra2025.p3ro2da.entity.Curso;
 import imb.progra2025.p3ro2da.repository.AlumnoRepository;
+import imb.progra2025.p3ro2da.repository.CursoRepository;
 import imb.progra2025.p3ro2da.service.IAlumnoService;
 
 @Service
@@ -15,6 +18,9 @@ public class AlumnoServiceImpl implements IAlumnoService {
 	
 	@Autowired
 	private AlumnoRepository repo;
+	
+	@Autowired
+	private CursoRepository cursoRepository;
 
 	@Override
 	public List<Alumno> findAll() {
@@ -39,6 +45,14 @@ public class AlumnoServiceImpl implements IAlumnoService {
 	@Override
 	public void deleteById(Long id) {
 		repo.deleteById(id);		
+	}
+
+	@Override
+	public Alumno fromDto(AlumnoRequestDTO dto) throws Exception {
+	    Curso curso = cursoRepository.findById(dto.getCursoId())
+	        .orElseThrow(() -> new Exception("Curso no encontrado"));
+
+	    return new Alumno(dto.getApellido(), dto.getNombre(), curso);
 	}
 
 }
