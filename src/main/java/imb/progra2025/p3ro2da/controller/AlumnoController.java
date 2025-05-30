@@ -17,6 +17,7 @@ import imb.progra2025.p3ro2da.dto.AlumnoRequestDTO;
 import imb.progra2025.p3ro2da.dto.ApiResponseDTO;
 import imb.progra2025.p3ro2da.entity.Alumno;
 import imb.progra2025.p3ro2da.service.IAlumnoService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/alumno")
@@ -42,23 +43,23 @@ public class AlumnoController {
 	}
 	
 	//POST
-	@PostMapping("/alumno")
-	public ResponseEntity<Alumno> createAlumno(@RequestBody AlumnoRequestDTO alumnoRequestDto){
+	@PostMapping
+	public ResponseEntity<Alumno> createAlumno(@Valid @RequestBody AlumnoRequestDTO alumnoRequestDto){
 		return ResponseEntity.ok(service.create(service.fromDto(alumnoRequestDto))) ;
 	}
 	
 	//PUT
-	@PutMapping("/alumno/{idalumno}")
-	public ResponseEntity<Alumno> updateAlumno(@PathVariable("idalumno") Long id, @RequestBody AlumnoRequestDTO alumnoRequestDto) {
+	@PutMapping("/{idalumno}")
+	public ResponseEntity<Alumno> updateAlumno(@PathVariable("idalumno") Long id, @Valid @RequestBody AlumnoRequestDTO alumnoRequestDto) {
 		return ResponseEntity.ok(service.update(id, service.fromDto(alumnoRequestDto))) ;
 
 	}
 	
 	//DELETE
-	@DeleteMapping("/alumno/{idalumno}")
-	public String deleteAlumno(@PathVariable("idalumno") Long id) {
+	@DeleteMapping("/{idalumno}")
+	public ResponseEntity<Void> deleteAlumno(@PathVariable("idalumno") Long id) {
 		service.deleteById(id);
-		return "Alumno " + id.toString() + " eliminado correctamente. ";
+		return ResponseEntity.noContent().build();
 	}  
 	
 

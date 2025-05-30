@@ -49,9 +49,12 @@ public class AlumnoServiceImpl implements IAlumnoService {
 	}	
 
 	@Override
-	public void deleteById(Long id) {
-		repo.deleteById(id);		
-	}
+    public void deleteById(Long id) {
+        if (!repo.existsById(id)) {
+            throw new ResourceNotFoundException("Alumno no encontrado con id " + id);
+        }
+        repo.deleteById(id);
+    }
 
 	@Override
 	public Alumno fromDto(AlumnoRequestDTO dto) throws ResourceNotFoundException {
